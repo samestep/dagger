@@ -6,11 +6,13 @@
 (def rules (atom {}))
 
 (defn declare [key context]
-  (swap! rules
-         (fn [m]
-           (if (contains? m key)
-             (throw (ex-info "redeclared rule" {:key key}))
-             (assoc m key {:context (set context)})))))
+  (if (namespace key)
+    (swap! rules
+           (fn [m]
+             (if (contains? m key)
+               (throw (ex-info "redeclared rule" {:key key}))
+               (assoc m key {:context (set context)}))))
+    (throw (ex-info "missing namespace" {:key key}))))
 
 (defn define [key function]
   (swap! rules
