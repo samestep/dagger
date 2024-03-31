@@ -1,6 +1,6 @@
 (ns sara.section63
   (:refer-clojure :exclude [declare])
-  (:require [util :refer [declare defexception define]]))
+  (:require [util :refer [declare defcase define]]))
 
 (declare ::filing-status [:year :person])
 
@@ -38,7 +38,7 @@
 
 (declare ::personal-exemptions [:year :person])
 
-(defexception ::taxable-income
+(defcase ::taxable-income
   (fn [? _]
     (not (? ::itemize)))
   (fn [? _ _]
@@ -140,7 +140,7 @@
   (fn [? _]
     (? ::gross-income)))
 
-(defexception ::basic-standard-deduction
+(defcase ::basic-standard-deduction
   (fn [? _]
     (? ::section-c-5))
   (fn [? _ original]
@@ -184,7 +184,7 @@
   (fn [? _]
     (or (? ::estate-or-trust) (? ::common-trust-fund) (? ::partnership))))
 
-(defexception ::standard-deduction
+(defcase ::standard-deduction
   (fn [? _]
     (or (? ::section-c-6-a) (? ::section-c-6-b) (? ::section-c-6-d)))
   (fn [_ _ _]
@@ -205,13 +205,13 @@
   (fn [_ {:keys [year]}]
     (<= 2018 year 2025)))
 
-(defexception ::subparagraph-c-2-b
+(defcase ::subparagraph-c-2-b
   (fn [? _]
     (? ::special-rules))
   (fn [_ _ _]
     18000))
 
-(defexception ::subparagraph-c-2-c
+(defcase ::subparagraph-c-2-c
   (fn [? _]
     (? ::special-rules))
   (fn [_ _ _]
@@ -317,7 +317,7 @@
 
 (declare ::married [:year :person])
 
-(defexception ::bonus
+(defcase ::bonus
   (fn [? _]
     (and (not (? ::married)) (not (? ::surviving-spouse))))
   (fn [_ _ _]

@@ -1,7 +1,7 @@
 (ns sara.section1
   (:refer-clojure :exclude [declare])
   (:require [clojure.math :refer [round]]
-            [util :refer [declare defexception define]]))
+            [util :refer [declare defcase define]]))
 
 ;; §1. Tax imposed
 
@@ -37,7 +37,7 @@
 
 (declare ::surviving-spouse [:return])
 
-(defexception ::tax-unrounded
+(defcase ::tax-unrounded
   (fn [? _]
     (or (= (? ::filing-status) :married-filing-jointly) (? ::surviving-spouse)))
   (fn [? _ _]
@@ -68,7 +68,7 @@
 ;;     (iv) $33,385, plus 36% of the excess over $127,500 if the taxable income is over $127,500 but not over $250,000;
 ;;     (v) $77,485, plus 39.6% of the excess over $250,000 if the taxable income is over $250,000.
 
-(defexception ::tax-unrounded
+(defcase ::tax-unrounded
   (fn [? _]
     (= (? ::filing-status) :head-of-household))
   (fn [? _ _]
@@ -99,7 +99,7 @@
 ;;     (iv) $31,172, plus 36% of the excess over $115,000 if the taxable income is over $115,000 but not over $250,000;
 ;;     (v) $79,772, plus 39.6% of the excess over $250,000 if the taxable income is over $250,000.
 
-(defexception ::tax-unrounded
+(defcase ::tax-unrounded
   (fn [? _]
     (and (= (? ::filing-status) :single) (not (? ::surviving-spouse))))
   (fn [? _ _]
@@ -130,7 +130,7 @@
 ;;     (iv) $17,964.25, plus 36% of the excess over $70,000 if the taxable income is over $70,000 but not over $125,000;
 ;;     (v) $37,764.25, plus 39.6% of the excess over $125,000 if the taxable income is over $125,000
 
-(defexception ::tax-unrounded
+(defcase ::tax-unrounded
   (fn [? _]
     (= (? ::filing-status) :married-filing-separately))
   (fn [? _ _]

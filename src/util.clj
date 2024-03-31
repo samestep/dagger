@@ -23,7 +23,7 @@
                (assoc m key (assoc v :function function)))
              (throw (ex-info "missing rule" {:key key}))))))
 
-(defn defexception [key condition function]
+(defn defcase [key condition function]
   (swap! rules
          (fn [m]
            (if-let [v (get m key)]
