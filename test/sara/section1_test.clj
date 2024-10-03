@@ -64,9 +64,7 @@
     (with-context db {:return :alice}
       {::s1/year 2017
        ::s1/filing-status :head-of-household
-       ::s1/taxable-income 97407
-       ;; the rest of this information is not explicit in the text
-       ::s1/surviving-spouse false})
+       ::s1/taxable-income 97407})
     ;; Alice and her spouse have to pay $247647 in taxes for the year 2017 under section 1(a)(iv). Contradiction
     (let [tax (query db ::s1/tax {:return :alice})]
       (is (not= 247647 tax)))))
@@ -166,9 +164,7 @@
     (with-context db {:return :alice}
       {::s1/year 2017
        ::s1/filing-status :head-of-household
-       ::s1/taxable-income 9560
-       ;; the rest of this information is not explicit in the text
-       ::s1/surviving-spouse false})
+       ::s1/taxable-income 9560})
     ;; Alice has to pay $1434 in taxes for the year 2017 under section 1(b)(i). Entailment
     (let [tax (query db ::s1/tax {:return :alice})]
       (is (= 1434 tax)))))
@@ -179,9 +175,7 @@
     (with-context db {:return :alice}
       {::s1/year 2017
        ::s1/filing-status :head-of-household
-       ::s1/taxable-income 54775
-       ;; the rest of this information is not explicit in the text
-       ::s1/surviving-spouse false})
+       ::s1/taxable-income 54775})
     ;; Alice has to pay $11489 in taxes for the year 2017 under section 1(b)(ii). Entailment
     (let [tax (query db ::s1/tax {:return :alice})]
       (is (= 11489 tax)))))
@@ -192,9 +186,7 @@
     (with-context db {:return :alice}
       {::s1/year 2017
        ::s1/filing-status :head-of-household
-       ::s1/taxable-income 97407
-       ;; the rest of this information is not explicit in the text
-       ::s1/surviving-spouse false})
+       ::s1/taxable-income 97407})
     ;; Alice has to pay $24056 in taxes for the year 2017 under section 1(b)(iii). Entailment
     (let [tax (query db ::s1/tax {:return :alice})]
       (is (= 24056 tax)))))
@@ -205,9 +197,7 @@
     (with-context db {:return :alice}
       {::s1/year 2017
        ::s1/filing-status :head-of-household
-       ::s1/taxable-income 194512
-       ;; the rest of this information is not explicit in the text
-       ::s1/surviving-spouse false})
+       ::s1/taxable-income 194512})
     ;; Alice has to pay $57509 in taxes for the year 2017 under section 1(b)(iv). Entailment
     (let [tax (query db ::s1/tax {:return :alice})]
       (is (= 57509 tax)))))
@@ -218,9 +208,7 @@
     (with-context db {:return :alice}
       {::s1/year 2017
        ::s1/filing-status :head-of-household
-       ::s1/taxable-income 1172980
-       ;; the rest of this information is not explicit in the text
-       ::s1/surviving-spouse false})
+       ::s1/taxable-income 1172980})
     ;; Alice has to pay $442985 in taxes for the year 2017 under section 1(b)(v). Entailment
     (let [tax (query db ::s1/tax {:return :alice})]
       (is (= 442985 tax)))))
@@ -231,9 +219,7 @@
     (with-context db {:return :alice}
       {::s1/year 2017
        ::s1/filing-status :head-of-household
-       ::s1/taxable-income 97407
-       ;; the rest of this information is not explicit in the text
-       ::s1/surviving-spouse false})
+       ::s1/taxable-income 97407})
     ;; Alice has to pay $24056 in taxes for the year 2017 under section 1(b). Entailment
     (let [tax (query db ::s1/tax {:return :alice})]
       (is (= 24056 tax)))))
@@ -244,9 +230,7 @@
     (with-context db {:return :alice}
       {::s1/year 2017
        ::s1/filing-status :single
-       ::s1/taxable-income 7748
-       ;; the rest of this information is not explicit in the text
-       ::s1/surviving-spouse false})
+       ::s1/taxable-income 7748})
     ;; Alice has to pay $1162 in taxes for the year 2017 under section 1(c)(i). Entailment
     (let [tax (query db ::s1/tax {:return :alice})]
       (is (= 1162 tax)))))
@@ -257,9 +241,7 @@
     (with-context db {:return :alice}
       {::s1/year 2017
        ::s1/filing-status :single
-       ::s1/taxable-income 22895
-       ;; the rest of this information is not explicit in the text
-       ::s1/surviving-spouse false})
+       ::s1/taxable-income 22895})
     ;; Alice has to pay $3538 in taxes for the year 2017 under section 1(c)(ii). Entailment
     (let [tax (query db ::s1/tax {:return :alice})]
       (is (= 3538 tax)))))
@@ -270,9 +252,7 @@
     (with-context db {:return :alice}
       {::s1/year 2017
        ::s1/filing-status :single
-       ::s1/taxable-income 102268
-       ;; the rest of this information is not explicit in the text
-       ::s1/surviving-spouse false})
+       ::s1/taxable-income 102268})
     ;; Alice has to pay $27225 in taxes for the year 2017 under section 1(c)(iii). Entailment
     (let [tax (query db ::s1/tax {:return :alice})]
       (is (= 27225 tax)))))
@@ -283,9 +263,7 @@
     (with-context db {:return :alice}
       {::s1/year 2017
        ::s1/filing-status :single
-       ::s1/taxable-income 210204
-       ;; the rest of this information is not explicit in the text
-       ::s1/surviving-spouse false})
+       ::s1/taxable-income 210204})
     ;; Alice has to pay $65445 in taxes for the year 2017 under section 1(c)(iv). Entailment
     (let [tax (query db ::s1/tax {:return :alice})]
       (is (= 65445 tax)))))
@@ -296,9 +274,7 @@
     (with-context db {:return :alice}
       {::s1/year 2017
        ::s1/filing-status :single
-       ::s1/taxable-income 718791
-       ;; the rest of this information is not explicit in the text
-       ::s1/surviving-spouse false})
+       ::s1/taxable-income 718791})
     ;; Alice has to pay $265413 in taxes for the year 2017 under section 1(c)(v). Entailment
     (let [tax (query db ::s1/tax {:return :alice})]
       (is (= 265413 tax)))))
@@ -309,9 +285,7 @@
     (with-context db {:return :alice}
       {::s1/year 2017
        ::s1/filing-status :single
-       ::s1/taxable-income 210204
-       ;; the rest of this information is not explicit in the text
-       ::s1/surviving-spouse false})
+       ::s1/taxable-income 210204})
     ;; Alice has to pay $65445 in taxes for the year 2017 under section 1(c). Entailment
     (let [tax (query db ::s1/tax {:return :alice})]
       (is (= 65445 tax)))))
@@ -322,9 +296,7 @@
     (with-context db {:return :alice}
       {::s1/year 2017
        ::s1/filing-status :married-filing-separately
-       ::s1/taxable-income 6662
-       ;; the rest of this information is not explicit in the text
-       ::s1/surviving-spouse false})
+       ::s1/taxable-income 6662})
     ;; Alice has to pay $999 in taxes for the year 2017 under section 1(d)(i). Entailment
     (let [tax (query db ::s1/tax {:return :alice})]
       (is (= 999 tax)))))
@@ -335,9 +307,7 @@
     (with-context db {:return :alice}
       {::s1/year 2017
        ::s1/filing-status :married-filing-separately
-       ::s1/taxable-income 28864
-       ;; the rest of this information is not explicit in the text
-       ::s1/surviving-spouse false})
+       ::s1/taxable-income 28864})
     ;; Alice has to pay $5683 in taxes for the year 2017 under section 1(d)(ii). Entailment
     (let [tax (query db ::s1/tax {:return :alice})]
       (is (= 5683 tax)))))
@@ -348,9 +318,7 @@
     (with-context db {:return :alice}
       {::s1/year 2017
        ::s1/filing-status :married-filing-separately
-       ::s1/taxable-income 67285
-       ;; the rest of this information is not explicit in the text
-       ::s1/surviving-spouse false})
+       ::s1/taxable-income 67285})
     ;; Alice has to pay $17123 in taxes for the year 2017 under section 1(d)(iii). Entailment
     (let [tax (query db ::s1/tax {:return :alice})]
       (is (= 17123 tax)))))
@@ -361,9 +329,7 @@
     (with-context db {:return :alice}
       {::s1/year 2017
        ::s1/filing-status :married-filing-separately
-       ::s1/taxable-income 113580
-       ;; the rest of this information is not explicit in the text
-       ::s1/surviving-spouse false})
+       ::s1/taxable-income 113580})
     ;; Alice has to pay $33653 in taxes for the year 2017 under section 1(d)(iv). Entailment
     (let [tax (query db ::s1/tax {:return :alice})]
       (is (= 33653 tax)))))
@@ -374,9 +340,7 @@
     (with-context db {:return :alice}
       {::s1/year 2017
        ::s1/filing-status :married-filing-separately
-       ::s1/taxable-income 554313
-       ;; the rest of this information is not explicit in the text
-       ::s1/surviving-spouse false})
+       ::s1/taxable-income 554313})
     ;; Alice has to pay $20772 in taxes for the year 2017 under section 1(d)(v). Contradiction
     (let [tax (query db ::s1/tax {:return :alice})]
       (is (not= 20772 tax)))))
@@ -387,9 +351,7 @@
     (with-context db {:return :alice}
       {::s1/year 2017
        ::s1/filing-status :married-filing-separately
-       ::s1/taxable-income 554313
-       ;; the rest of this information is not explicit in the text
-       ::s1/surviving-spouse false})
+       ::s1/taxable-income 554313})
     ;; Alice has to pay $207772 in taxes for the year 2017 under section 1(d)(v). Entailment
     (let [tax (query db ::s1/tax {:return :alice})]
       (is (= 207772 tax)))))
@@ -400,9 +362,7 @@
     (with-context db {:return :alice}
       {::s1/year 2017
        ::s1/filing-status :married-filing-separately
-       ::s1/taxable-income 554313
-       ;; the rest of this information is not explicit in the text
-       ::s1/surviving-spouse false})
+       ::s1/taxable-income 554313})
     ;; Alice has to pay $207772 in taxes for the year 2017 under section 1(d). Entailment
     (let [tax (query db ::s1/tax {:return :alice})]
       (is (= 207772 tax)))))

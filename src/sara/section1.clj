@@ -2,7 +2,7 @@
   (:refer-clojure :exclude [declare])
   (:require [clojure.math :refer [round]]
             [sara.section2 :as s2]
-            [util :refer [declare defcase define]]))
+            [util :refer [condition declare defcase define]]))
 
 ;; §1. Tax imposed
 
@@ -38,7 +38,7 @@
 
 (declare ::taxable-income [:return])
 
-(declare ::surviving-spouse [:return])
+(condition ::surviving-spouse [:return])
 (define ::surviving-spouse
   (fn [? _]
     (? ::s2/surviving-spouse
