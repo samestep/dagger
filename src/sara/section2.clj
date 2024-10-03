@@ -1,6 +1,6 @@
 (ns sara.section2
   (:refer-clojure :exclude [declare])
-  (:require [util :refer [declare]]))
+  (:require [util :refer [condition]]))
 
 ;; §2. Definitions and special rules
 ;;
@@ -24,7 +24,7 @@
 ;;
 ;;         (B) unless, for the taxpayer's taxable year during which his spouse died, a joint return could have been made. A husband and wife may make a single return jointly of income taxes, even though one of the spouses has neither gross income nor deductions, except that no joint return shall be made if either the husband or wife at any time during the taxable year is a nonresident alien.
 
-(declare ::surviving-spouse [:year :person])
+(condition ::surviving-spouse [:year :person])
 
 ;; (b) Definition of head of household
 ;;

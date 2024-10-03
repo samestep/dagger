@@ -1,7 +1,7 @@
 (ns sara.section63
   (:refer-clojure :exclude [declare])
   (:require [sara.section2 :as s2]
-            [util :refer [declare defcase define]]))
+            [util :refer [condition declare defcase define]]))
 
 (declare ::filing-status [:year :person])
 
@@ -28,7 +28,7 @@
 ;;
 ;;     (2) the deduction for personal exemptions provided in section 151.
 
-(declare ::itemize [:year :person])
+(condition ::itemize [:year :person])
 
 (declare ::adjusted-gross-income [:year :person])
 (define ::adjusted-gross-income
@@ -82,22 +82,22 @@
 ;;
 ;;         (C) $3,000 in any other case.
 
-(declare ::section-c-2-a-i [:year :person])
+(condition ::section-c-2-a-i [:year :person])
 (define ::section-c-2-a-i
   (fn [? _]
     (= (? ::filing-status) :married-filing-jointly)))
 
-(declare ::section-c-2-a-ii [:year :person])
+(condition ::section-c-2-a-ii [:year :person])
 (define ::section-c-2-a-ii
   (fn [? _]
     (? ::s2/surviving-spouse)))
 
-(declare ::subparagraph-c-2-b [:year])
+(condition ::subparagraph-c-2-b [:year])
 (define ::subparagraph-c-2-b
   (fn [_ _]
     4400))
 
-(declare ::subparagraph-c-2-c [:year])
+(condition ::subparagraph-c-2-c [:year])
 (define ::subparagraph-c-2-c
   (fn [_ _]
     3000))
@@ -129,7 +129,7 @@
 
 (declare ::dependent [:year :person])
 
-(declare ::section-c-5 [:year :person])
+(condition ::section-c-5 [:year :person])
 (define ::section-c-5
   (fn [? _]
     (? ::dependent)))
@@ -159,26 +159,26 @@
 
 (declare ::spouse [:year :person])
 
-(declare ::section-c-6-a [:year :person])
+(condition ::section-c-6-a [:year :person])
 (define ::section-c-6-a
   (fn [? _]
     (and (= (? ::filing-status) :married-filing-separately)
          (or (? ::itemize) (? ::itemize {:person (? ::spouse)})))))
 
-(declare ::nonresident-alien [:year :person])
+(condition ::nonresident-alien [:year :person])
 
-(declare ::section-c-6-b [:year :person])
+(condition ::section-c-6-b [:year :person])
 (define ::section-c-6-b
   (fn [? _]
     (? ::nonresident-alien)))
 
-(declare ::estate-or-trust [:year :person])
+(condition ::estate-or-trust [:year :person])
 
-(declare ::common-trust-fund [:year :person])
+(condition ::common-trust-fund [:year :person])
 
-(declare ::partnership [:year :person])
+(condition ::partnership [:year :person])
 
-(declare ::section-c-6-d [:year :person])
+(condition ::section-c-6-d [:year :person])
 (define ::section-c-6-d
   (fn [? _]
     (or (? ::estate-or-trust) (? ::common-trust-fund) (? ::partnership))))
@@ -199,7 +199,7 @@
 ;;
 ;;         (ii) by substituting "$12,000" for "$3,000" in subparagraph (C).
 
-(declare ::special-rules [:year])
+(condition ::special-rules [:year])
 (define ::special-rules
   (fn [_ {:keys [year]}]
     (<= 2018 year 2025)))
@@ -292,14 +292,14 @@
 ;;
 ;;     For purposes of subparagraph (B), if the spouse dies during the taxable year the determination of whether such spouse is blind shall be made as of the time of such death.
 
-(declare ::blind [:year :person])
+(condition ::blind [:year :person])
 
-(declare ::section-f-2-a [:year :person])
+(condition ::section-f-2-a [:year :person])
 (define ::section-f-2-a
   (fn [? _]
     (? ::blind)))
 
-(declare ::section-f-2-b [:year :person])
+(condition ::section-f-2-b [:year :person])
 (define ::section-f-2-b
   (fn [? _]
     (and (? ::married)
@@ -314,7 +314,7 @@
 ;;
 ;;     In the case of an individual who is not married and is not a surviving spouse, paragraphs (1) and (2) shall be applied by substituting "$750" for "$600".
 
-(declare ::married [:year :person])
+(condition ::married [:year :person])
 
 (defcase ::bonus
   (fn [? _]

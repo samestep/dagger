@@ -14,6 +14,19 @@
                (assoc m key {:context (set context)}))))
     (throw (ex-info "missing namespace" {:key key}))))
 
+(defn default [key value]
+  (swap! rules
+         (fn [m]
+           (if-let [v (get m key)]
+             (if (contains? v :default)
+               (throw (ex-info "redefined default" {:key key}))
+               (assoc m key (assoc v :default value)))
+             (throw (ex-info "missing rule" {:key key}))))))
+
+(defn condition [key context]
+  (declare key context)
+  (default key false))
+
 (defn define [key function]
   (swap! rules
          (fn [m]
@@ -52,7 +65,7 @@
             (if function
               (function q context)
               (throw (ex-info "missing value"
-                              {:key key :context context}))))
+                              {:kind :missing :key key :context context}))))
         e (->> exceptions
                (map (fn [m]
                       (assoc m :applies
@@ -67,8 +80,9 @@
       (o))))
 
 (defn query [db key context]
-  (if-let [{ks :context f :function e :exceptions} (get @rules key)]
-    (let [c (select-keys context ks)
+  (if-let [info (get @rules key)]
+    (let [{ks :context f :function e :exceptions} info
+          c (select-keys context ks)
           d (set/difference ks (set (keys c)))]
       (if (seq d)
         (throw (ex-info "missing context"
@@ -80,7 +94,13 @@
               m @db
               v (if (contains? m k)
                   (get m k)
-                  (evaluate db key c f e))]
+                  (try
+                    (evaluate db key c f e)
+                    (catch Exception ex
+                      (if (and (= :missing (:kind (ex-data ex)))
+                               (contains? info :default))
+                        (:default info)
+                        (throw ex)))))]
           (swap! db assoc k v)
           v)))
     (throw (ex-info "missing rule" {:key key}))))

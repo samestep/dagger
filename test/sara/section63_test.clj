@@ -62,11 +62,7 @@
     (with-context db {:year 2017 :person "Alice"}
       {::s63/gross-income 33200
        ::s63/basic-standard-deduction 2000
-       ::s63/additional-standard-deduction 3000
-       ;; the rest of this information is not explicit in the text
-       ::s63/section-c-6-a false
-       ::s63/section-c-6-b false
-       ::s63/section-c-6-d false})
+       ::s63/additional-standard-deduction 3000})
     ;; Under section 63(c)(1), Alice's standard deduction in 2017 is equal to $4000. Contradiction
     (let [standard-deduction
           (query db ::s63/standard-deduction {:person "Alice" :year 2017})]
@@ -78,11 +74,7 @@
     (with-context db {:year 2017 :person "Alice"}
       {::s63/gross-income 33200
        ::s63/basic-standard-deduction 2000
-       ::s63/additional-standard-deduction 3000
-       ;; the rest of this information is not explicit in the text
-       ::s63/section-c-6-a false
-       ::s63/section-c-6-b false
-       ::s63/section-c-6-d false})
+       ::s63/additional-standard-deduction 3000})
     ;; Under section 63(c)(1), Alice's standard deduction in 2017 is equal to $5000. Entailment
     (let [standard-deduction
           (query db ::s63/standard-deduction {:person "Alice" :year 2017})]
@@ -129,9 +121,7 @@
       {::s63/gross-income 33200
        ::s63/married true
        ::s63/spouse "Bob"
-       ::s63/filing-status :married-filing-jointly
-       ;; the rest of this information is not explicit in the text
-       ::s2/surviving-spouse false})
+       ::s63/filing-status :married-filing-jointly})
     (with-context db {:year 2017 :person "Bob"}
       {::s63/married true
        ::s63/spouse "Alice"
@@ -159,9 +149,7 @@
       {::s63/gross-income 33200
        ::s63/married true
        ::s63/spouse "Bob"
-       ::s63/filing-status :married-filing-jointly
-       ;; the rest of this information is not explicit in the text
-       ::s63/section-c-5 false})
+       ::s63/filing-status :married-filing-jointly})
     (with-context db {:year 2017 :person "Bob"}
       {::s63/married true
        ::s63/spouse "Alice"
@@ -177,10 +165,7 @@
   (let [db (atom {})]
     (with-context db {:year 2017 :person "Alice"}
       {::s63/gross-income 33200
-       ::s63/filing-status :head-of-household
-       ;; the rest of this information is not explicit in the text
-       ::s63/section-c-5 false
-       ::s2/surviving-spouse false})
+       ::s63/filing-status :head-of-household})
     ;; Under section 63(c)(2)(B), Alice's basic standard deduction in 2017 is equal to $4400. Entailment
     (let [basic-standard-deduction
           (query db ::s63/basic-standard-deduction
@@ -194,9 +179,7 @@
       {::s63/gross-income 33200
        ::s63/married true
        ::s63/spouse "Bob"
-       ::s63/filing-status :married-filing-jointly
-       ;; the rest of this information is not explicit in the text
-       ::s63/section-c-5 false})
+       ::s63/filing-status :married-filing-jointly})
     (with-context db {:year 2017 :person "Bob"}
       {::s63/married true
        ::s63/spouse "Alice"
@@ -214,10 +197,7 @@
       {::s63/gross-income 33200
        ::s63/married true
        ::s63/spouse "Bob"
-       ::s63/filing-status :married-filing-separately
-       ;; the rest of this information is not explicit in the text
-       ::s63/section-c-5 false
-       ::s2/surviving-spouse false})
+       ::s63/filing-status :married-filing-separately})
     (with-context db {:year 2017 :person "Bob"}
       {::s63/married true
        ::s63/spouse "Alice"
@@ -235,14 +215,10 @@
       {::s63/gross-income 33200
        ::s63/married true
        ::s63/spouse "Bob"
-       ::s63/paragraph-1 (* 600 2)
-       ;; the rest of this information is not explicit in the text
-       ::s63/blind false})
+       ::s63/paragraph-1 (* 600 2)})
     (with-context db {:year 2017 :person "Bob"}
       {::s63/married true
-       ::s63/spouse "Alice"
-       ;; the rest of this information is not explicit in the text
-       ::s63/blind false})
+       ::s63/spouse "Alice"})
     ;; Under section 63(c)(3), Alice's additional standard deduction in 2017 is equal to $300. Contradiction
     (let [additional-standard-deduction
           (query db ::s63/additional-standard-deduction
@@ -256,14 +232,10 @@
       {::s63/gross-income 33200
        ::s63/married true
        ::s63/spouse "Bob"
-       ::s63/paragraph-1 (* 600 2)
-       ;; the rest of this information is not explicit in the text
-       ::s63/blind false})
+       ::s63/paragraph-1 (* 600 2)})
     (with-context db {:year 2017 :person "Bob"}
       {::s63/married true
-       ::s63/spouse "Alice"
-       ;; the rest of this information is not explicit in the text
-       ::s63/blind false})
+       ::s63/spouse "Alice"})
     ;; Under section 63(c)(3), Alice's additional standard deduction in 2017 is equal to $1200. Entailment
     (let [additional-standard-deduction
           (query db ::s63/additional-standard-deduction
@@ -333,9 +305,7 @@
       {::s63/gross-income 33200
        ::s63/married true
        ::s63/spouse "Bob"
-       ::s63/filing-status :married-filing-separately
-       ;; the rest of this information is not explicit in the text
-       ::s63/itemize false})
+       ::s63/filing-status :married-filing-separately})
     (with-context db {:year 2017 :person "Bob"}
       {::s63/married true
        ::s63/spouse "Alice"
@@ -383,10 +353,7 @@
   ;; From 1973 to 2019, the Walter Brown Family Trust II was considered to be a business trust.
   (let [db (atom {})]
     (with-context db {:year 2021 :person "Walter Brown Family Trust II"}
-      {::s63/estate-or-trust false
-       ;; the rest of this information is not explicit in the text
-       ::s63/common-trust-fund false
-       ::s63/partnership false})
+      {::s63/estate-or-trust false})
     ;; Section 63(c)(6)(D) applies to the Walter Brown Family Trust II for 2021. Contradiction
     (let [section-c-6-d
           (query db ::s63/section-c-6-d
@@ -409,10 +376,7 @@
   (let [db (atom {})]
     (with-context db {:year 2019 :person "Alice"}
       {::s63/gross-income 33200
-       ::s63/filing-status :head-of-household
-       ;; the rest of this information is not explicit in the text
-       ::s63/dependent false
-       ::s2/surviving-spouse false})
+       ::s63/filing-status :head-of-household})
     ;; Under section 63(c)(7)(i), Alice's basic standard deduction in 2019 is equal to $4400. Contradiction
     (let [basic-standard-deduction
           (query db ::s63/basic-standard-deduction
@@ -424,10 +388,7 @@
   (let [db (atom {})]
     (with-context db {:year 2019 :person "Alice"}
       {::s63/gross-income 33200
-       ::s63/filing-status :head-of-household
-       ;; the rest of this information is not explicit in the text
-       ::s63/dependent false
-       ::s2/surviving-spouse false})
+       ::s63/filing-status :head-of-household})
     ;; Under section 63(c)(7)(i), Alice's basic standard deduction in 2019 is equal to $18000. Entailment
     (let [basic-standard-deduction
           (query db ::s63/basic-standard-deduction
@@ -441,10 +402,7 @@
       {::s63/gross-income 33200
        ::s63/married true
        ::s63/spouse "Bob"
-       ::s63/filing-status :married-filing-separately
-       ;; the rest of this information is not explicit in the text
-       ::s63/dependent false
-       ::s2/surviving-spouse false})
+       ::s63/filing-status :married-filing-separately})
     (with-context db {:year 2019 :person "Bob"}
       {::s63/married true
        ::s63/spouse "Alice"
@@ -462,10 +420,7 @@
       {::s63/gross-income 33200
        ::s63/married true
        ::s63/spouse "Bob"
-       ::s63/filing-status :married-filing-separately
-       ;; the rest of this information is not explicit in the text
-       ::s63/dependent false
-       ::s2/surviving-spouse false})
+       ::s63/filing-status :married-filing-separately})
     (with-context db {:year 2019 :person "Bob"}
       {::s63/married true
        ::s63/spouse "Alice"
@@ -560,9 +515,7 @@
        ::s63/blind true})
     (with-context db {:year 2017 :person "Bob"}
       {::s63/married true
-       ::s63/spouse "Alice"
-       ;; the rest of this information is not explicit in the text
-       ::s63/blind false})
+       ::s63/spouse "Alice"})
     ;; Section 63(f)(2)(A) applies to Bob in 2017. Contradiction
     (let [section-f-2-a
           (query db ::s63/section-f-2-a {:person "Bob" :year 2017})]
@@ -595,9 +548,7 @@
        ::s63/additional-exemption-for-spouse true})
     (with-context db {:year 2017 :person "Bob"}
       {::s63/married true
-       ::s63/spouse "Alice"
-       ;; the rest of this information is not explicit in the text
-       ::s63/blind false})
+       ::s63/spouse "Alice"})
     ;; Section 63(f)(2)(B) applies to Alice in 2017. Contradiction
     (let [section-f-2-b
           (query db ::s63/section-f-2-b {:person "Alice" :year 2017})]
@@ -624,11 +575,7 @@
   ;; In 2017, Alice was paid $33200. Alice was born March 2nd, 1950 and Bob was born March 3rd, 1955.
   (let [db (atom {})]
     (with-context db {:year 2017 :person "Alice"}
-      {::s63/gross-income 33200
-       ;; the rest of this information is not explicit in the text
-       ::s63/married false
-       ::s2/surviving-spouse false
-       ::s63/blind false})
+      {::s63/gross-income 33200})
     (with-key db ::s63/birth-date
       {{:person "Alice"} [1950 3 2]
        {:person "Bob"} [1955 3 3]})
@@ -642,11 +589,7 @@
   ;; In 2017, Alice was paid $33200. Alice was born March 2nd, 1950 and Bob was born March 3rd, 1955.
   (let [db (atom {})]
     (with-context db {:year 2017 :person "Alice"}
-      {::s63/gross-income 33200
-       ;; the rest of this information is not explicit in the text
-       ::s63/married false
-       ::s2/surviving-spouse false
-       ::s63/blind false})
+      {::s63/gross-income 33200})
     (with-key db ::s63/birth-date
       {{:person "Alice"} [1950 3 2]
        {:person "Bob"} [1955 3 3]})
