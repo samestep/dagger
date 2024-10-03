@@ -18,15 +18,14 @@
 ;;     For purposes of this paragraph, an individual shall be considered as maintaining a household only if over half of the cost of maintaining the household during the taxable year is furnished by such individual.
 
 (condition ::section-a-1-a [:year :person])
+(define ::section-a-1-a
+  (fn [? {:keys [year]}]
+    (let [[y] (? ::common/death-date {:person (? ::common/spouse)})]
+      (contains? #{(- year 1) (- year 2)} y))))
 
 (condition ::section-a-1-b [:year :person])
 
 (condition ::surviving-spouse [:year :person])
-(define ::surviving-spouse
-  (fn [? {:keys [year]}]
-    (and (contains? #{(- year 1) (- year 2)}
-                    (? ::common/death-year {:person (? ::common/spouse)}))
-         :todo)))
 
 ;;     (2) Limitations
 ;;

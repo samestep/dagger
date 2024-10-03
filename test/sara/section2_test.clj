@@ -1,13 +1,16 @@
 (ns sara.section2-test
   (:require [clojure.test :refer [deftest is]]
+            [sara.common :as common]
             [sara.section2 :as s2]
-            [util :refer [query with-context]]))
+            [util :refer [query with-context with-key]]))
 
 (deftest a-1-a-neg
   ;; Alice and Bob got married on Feb 3rd, 1992. Alice died on July 9th, 2014.
   (let [db (atom {})]
-    (with-context db {}
-      {})
+    (with-context db {:year 2014 :person "Bob"}
+      {::common/spouse "Alice"})
+    (with-key db ::common/death-date
+      {{:person "Alice"} [2014 7 9]})
     ;; Section 2(a)(1)(A) applies to Bob in 2014. Contradiction
     (let [section-a-1-a
           (query db ::s2/section-a-1-a {:person "Bob" :year 2014})]
@@ -16,8 +19,10 @@
 (deftest a-1-a-pos
   ;; Alice and Bob got married on Feb 3rd, 1992. Alice died on July 9th, 2014.
   (let [db (atom {})]
-    (with-context db {}
-      {})
+    (with-context db {:year 2015 :person "Bob"}
+      {::common/spouse "Alice"})
+    (with-key db ::common/death-date
+      {{:person "Alice"} [2014 7 9]})
     ;; Section 2(a)(1)(A) applies to Bob in 2015. Entailment
     (let [section-a-1-a
           (query db ::s2/section-a-1-a {:person "Bob" :year 2015})]
