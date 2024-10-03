@@ -1,6 +1,6 @@
 (ns sara.section2
   (:refer-clojure :exclude [declare])
-  (:require [util :refer [declare defcase define]]))
+  (:require [util :refer [declare]]))
 
 ;; §2. Definitions and special rules
 ;;
