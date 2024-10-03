@@ -1,5 +1,6 @@
 (ns sara.section63-test
   (:require [clojure.test :refer [deftest is]]
+            [sara.section2 :as s2]
             [sara.section63 :as s63]
             [util :refer [query with-context with-key]]))
 
@@ -130,7 +131,7 @@
        ::s63/spouse "Bob"
        ::s63/filing-status :married-filing-jointly
        ;; the rest of this information is not explicit in the text
-       ::s63/surviving-spouse false})
+       ::s2/surviving-spouse false})
     (with-context db {:year 2017 :person "Bob"}
       {::s63/married true
        ::s63/spouse "Alice"
@@ -145,7 +146,7 @@
   (let [db (atom {})]
     (with-context db {:year 2017 :person "Alice"}
       {::s63/gross-income 33200
-       ::s63/surviving-spouse true})
+       ::s2/surviving-spouse true})
     ;; Section 63(c)(2)(A)(ii) applies to Alice in 2017. Entailment
     (let [section-c-2-a-ii
           (query db ::s63/section-c-2-a-ii {:person "Alice" :year 2017})]
@@ -179,7 +180,7 @@
        ::s63/filing-status :head-of-household
        ;; the rest of this information is not explicit in the text
        ::s63/section-c-5 false
-       ::s63/surviving-spouse false})
+       ::s2/surviving-spouse false})
     ;; Under section 63(c)(2)(B), Alice's basic standard deduction in 2017 is equal to $4400. Entailment
     (let [basic-standard-deduction
           (query db ::s63/basic-standard-deduction
@@ -216,7 +217,7 @@
        ::s63/filing-status :married-filing-separately
        ;; the rest of this information is not explicit in the text
        ::s63/section-c-5 false
-       ::s63/surviving-spouse false})
+       ::s2/surviving-spouse false})
     (with-context db {:year 2017 :person "Bob"}
       {::s63/married true
        ::s63/spouse "Alice"
@@ -411,7 +412,7 @@
        ::s63/filing-status :head-of-household
        ;; the rest of this information is not explicit in the text
        ::s63/dependent false
-       ::s63/surviving-spouse false})
+       ::s2/surviving-spouse false})
     ;; Under section 63(c)(7)(i), Alice's basic standard deduction in 2019 is equal to $4400. Contradiction
     (let [basic-standard-deduction
           (query db ::s63/basic-standard-deduction
@@ -426,7 +427,7 @@
        ::s63/filing-status :head-of-household
        ;; the rest of this information is not explicit in the text
        ::s63/dependent false
-       ::s63/surviving-spouse false})
+       ::s2/surviving-spouse false})
     ;; Under section 63(c)(7)(i), Alice's basic standard deduction in 2019 is equal to $18000. Entailment
     (let [basic-standard-deduction
           (query db ::s63/basic-standard-deduction
@@ -443,7 +444,7 @@
        ::s63/filing-status :married-filing-separately
        ;; the rest of this information is not explicit in the text
        ::s63/dependent false
-       ::s63/surviving-spouse false})
+       ::s2/surviving-spouse false})
     (with-context db {:year 2019 :person "Bob"}
       {::s63/married true
        ::s63/spouse "Alice"
@@ -464,7 +465,7 @@
        ::s63/filing-status :married-filing-separately
        ;; the rest of this information is not explicit in the text
        ::s63/dependent false
-       ::s63/surviving-spouse false})
+       ::s2/surviving-spouse false})
     (with-context db {:year 2019 :person "Bob"}
       {::s63/married true
        ::s63/spouse "Alice"
@@ -626,7 +627,7 @@
       {::s63/gross-income 33200
        ;; the rest of this information is not explicit in the text
        ::s63/married false
-       ::s63/surviving-spouse false
+       ::s2/surviving-spouse false
        ::s63/blind false})
     (with-key db ::s63/birth-date
       {{:person "Alice"} [1950 3 2]
@@ -644,7 +645,7 @@
       {::s63/gross-income 33200
        ;; the rest of this information is not explicit in the text
        ::s63/married false
-       ::s63/surviving-spouse false
+       ::s2/surviving-spouse false
        ::s63/blind false})
     (with-key db ::s63/birth-date
       {{:person "Alice"} [1950 3 2]

@@ -1,6 +1,7 @@
 (ns sara.section63
   (:refer-clojure :exclude [declare])
-  (:require [util :refer [declare defcase define]]))
+  (:require [sara.section2 :as s2]
+            [util :refer [declare defcase define]]))
 
 (declare ::filing-status [:year :person])
 
@@ -89,7 +90,7 @@
 (declare ::section-c-2-a-ii [:year :person])
 (define ::section-c-2-a-ii
   (fn [? _]
-    (? ::surviving-spouse)))
+    (? ::s2/surviving-spouse)))
 
 (declare ::subparagraph-c-2-b [:year])
 (define ::subparagraph-c-2-b
@@ -100,8 +101,6 @@
 (define ::subparagraph-c-2-c
   (fn [_ _]
     3000))
-
-(declare ::surviving-spouse [:year :person])
 
 (define ::basic-standard-deduction
   (fn [? _]
@@ -319,7 +318,7 @@
 
 (defcase ::bonus
   (fn [? _]
-    (and (not (? ::married)) (not (? ::surviving-spouse))))
+    (and (not (? ::married)) (not (? ::s2/surviving-spouse))))
   (fn [_ _ _]
     750))
 

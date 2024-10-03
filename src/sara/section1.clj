@@ -1,11 +1,14 @@
 (ns sara.section1
   (:refer-clojure :exclude [declare])
   (:require [clojure.math :refer [round]]
+            [sara.section2 :as s2]
             [util :refer [declare defcase define]]))
 
 ;; §1. Tax imposed
 
 (declare ::year [:return])
+
+(declare ::person [:return])
 
 (declare ::filing-status [:return])
 
@@ -36,6 +39,10 @@
 (declare ::taxable-income [:return])
 
 (declare ::surviving-spouse [:return])
+(define ::surviving-spouse
+  (fn [? _]
+    (? ::s2/surviving-spouse
+       {:year (? ::year) :person (? ::person)})))
 
 (defcase ::tax-unrounded
   (fn [? _]
