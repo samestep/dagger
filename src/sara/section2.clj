@@ -17,12 +17,15 @@
 ;;
 ;;     For purposes of this paragraph, an individual shall be considered as maintaining a household only if over half of the cost of maintaining the household during the taxable year is furnished by such individual.
 
-(condition ::surviving-spouse [:year :person])
-(define ::surviving-spouse
+(condition ::section-a-1-a [:year :person])
+(define ::section-a-1-a
   (fn [? {:keys [year]}]
-    (and (contains? #{(- year 1) (- year 2)}
-                    (? ::common/death-year {:person (? ::common/spouse)}))
-         :todo)))
+    (let [[y] (? ::common/death-date {:person (? ::common/spouse)})]
+      (contains? #{(- year 1) (- year 2)} y))))
+
+(condition ::section-a-1-b [:year :person])
+
+(condition ::surviving-spouse [:year :person])
 
 ;;     (2) Limitations
 ;;
@@ -32,11 +35,9 @@
 ;;
 ;;         (B) unless, for the taxpayer's taxable year during which his spouse died, a joint return could have been made. A husband and wife may make a single return jointly of income taxes, even though one of the spouses has neither gross income nor deductions, except that no joint return shall be made if either the husband or wife at any time during the taxable year is a nonresident alien.
 
-;; (defcase ::surviving-spouse
-;;   (fn [_ _]
-;;     :todo)
-;;   (fn [_ _ _]
-;;     :todo))
+(condition ::section-a-2-a [:year :person])
+
+(condition ::section-a-2-b [:year :person])
 
 ;; (b) Definition of head of household
 ;;
@@ -57,7 +58,21 @@
 ;;         (B) maintains a household which constitutes for such taxable year the principal place of abode of the father or mother of the taxpayer, if the taxpayer is entitled to a deduction for the taxable year for such father or mother under section 151.
 ;;
 ;;     For purposes of this paragraph, an individual shall be considered as maintaining a household only if over half of the cost of maintaining the household during the taxable year is furnished by such individual.
-;;
+
+(condition ::section-b-1-a-i-i [:year :person])
+
+(condition ::section-b-1-a-i-ii [:year :person :child])
+
+(condition ::section-b-1-a-i [:year :person])
+
+(condition ::section-b-1-a-ii [:year :person])
+
+(condition ::section-b-1-a [:year :person])
+
+(condition ::section-b-1-b [:year :person])
+
+(condition ::section-b-1 [:year :person])
+
 ;;     (2) Determination of status
 ;;
 ;;     Notwithstanding paragraph (1),
@@ -67,7 +82,13 @@
 ;;         (B) a taxpayer shall be considered as not married at the close of his taxable year if at any time during the taxable year his spouse is a nonresident alien; and
 ;;
 ;;         (C) a taxpayer shall be considered as married at the close of his taxable year if his spouse (other than a spouse described in subparagraph (B)) died during the taxable year.
-;;
+
+(condition ::section-b-2-a [:year :person :spouse])
+
+(condition ::section-b-2-b [:year :person])
+
+(condition ::section-b-2-c [:year :person])
+
 ;;     (3) Limitations
 ;;
 ;;     Notwithstanding paragraph (1), for purposes of this subtitle a taxpayer shall not be considered to be a head of a household-
@@ -75,3 +96,7 @@
 ;;         (A) if at any time during the taxable year he is a nonresident alien; or
 ;;
 ;;         (B) by reason of an individual who would not be a dependent for the taxable year but for subparagraph (H) of section 152(d)(2).
+
+(condition ::section-b-3-a [:year :person])
+
+(condition ::section-b-3-b [:year :person])

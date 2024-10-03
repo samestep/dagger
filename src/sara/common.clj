@@ -10,7 +10,7 @@
     (let [[y] (? ::birth-date)]
       (- year y))))
 
-(declare ::death-year [:person])
+(declare ::death-date [:person])
 
 (declare ::spouse [:year :person])
 
