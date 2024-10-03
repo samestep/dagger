@@ -1,6 +1,7 @@
 (ns sara.section2
   (:refer-clojure :exclude [declare])
-  (:require [util :refer [condition]]))
+  (:require [sara.common :as common]
+            [util :refer [condition define]]))
 
 ;; §2. Definitions and special rules
 ;;
@@ -15,7 +16,14 @@
 ;;         (B) who maintains as his home a household which constitutes for the taxable year the principal place of abode (as a member of such household) of a dependent (i) who (within the meaning of section 152) is a son, stepson, daughter, or stepdaughter of the taxpayer, and (ii) with respect to whom the taxpayer is entitled to a deduction for the taxable year under section 151.
 ;;
 ;;     For purposes of this paragraph, an individual shall be considered as maintaining a household only if over half of the cost of maintaining the household during the taxable year is furnished by such individual.
-;;
+
+(condition ::surviving-spouse [:year :person])
+(define ::surviving-spouse
+  (fn [? {:keys [year]}]
+    (and (contains? #{(- year 1) (- year 2)}
+                    (? ::common/death-year {:person (? ::common/spouse)}))
+         :todo)))
+
 ;;     (2) Limitations
 ;;
 ;;     Notwithstanding paragraph (1), for purposes of section 1 a taxpayer shall not be considered to be a surviving spouse-
@@ -24,7 +32,11 @@
 ;;
 ;;         (B) unless, for the taxpayer's taxable year during which his spouse died, a joint return could have been made. A husband and wife may make a single return jointly of income taxes, even though one of the spouses has neither gross income nor deductions, except that no joint return shall be made if either the husband or wife at any time during the taxable year is a nonresident alien.
 
-(condition ::surviving-spouse [:year :person])
+;; (defcase ::surviving-spouse
+;;   (fn [_ _]
+;;     :todo)
+;;   (fn [_ _ _]
+;;     :todo))
 
 ;; (b) Definition of head of household
 ;;

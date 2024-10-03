@@ -1,6 +1,7 @@
 (ns sara.section63
   (:refer-clojure :exclude [declare])
-  (:require [sara.section2 :as s2]
+  (:require [sara.common :as common]
+            [sara.section2 :as s2]
             [util :refer [condition declare defcase define]]))
 
 (declare ::filing-status [:year :person])
@@ -157,13 +158,11 @@
 ;;
 ;;     the standard deduction shall be zero.
 
-(declare ::spouse [:year :person])
-
 (condition ::section-c-6-a [:year :person])
 (define ::section-c-6-a
   (fn [? _]
     (and (= (? ::filing-status) :married-filing-separately)
-         (or (? ::itemize) (? ::itemize {:person (? ::spouse)})))))
+         (or (? ::itemize) (? ::itemize {:person (? ::common/spouse)})))))
 
 (condition ::nonresident-alien [:year :person])
 
@@ -256,26 +255,18 @@
 ;;
 ;;         (B) for the spouse of the taxpayer if the spouse has attained age 65 before the close of the taxable year and an additional exemption is allowable to the taxpayer for such spouse under section 151(b).
 
-(declare ::birth-date [:person])
-
-(declare ::age [:year :person])
-(define ::age
-  (fn [? {:keys [year]}]
-    (let [[y] (? ::birth-date)]
-      (- year y))))
-
 (declare ::section-f-1-a [:year :person])
 (define ::section-f-1-a
   (fn [? _]
-    (>= (? ::age) 65)))
+    (>= (? ::common/age) 65)))
 
 (declare ::additional-exemption-for-spouse [:year :person])
 
 (declare ::section-f-1-b [:year :person])
 (define ::section-f-1-b
   (fn [? _]
-    (and (? ::married)
-         (>= (? ::age {:person (? ::spouse)}) 65)
+    (and (? ::common/married)
+         (>= (? ::common/age {:person (? ::common/spouse)}) 65)
          (? ::additional-exemption-for-spouse))))
 
 (define ::paragraph-1
@@ -302,8 +293,8 @@
 (condition ::section-f-2-b [:year :person])
 (define ::section-f-2-b
   (fn [? _]
-    (and (? ::married)
-         (? ::blind {:person (? ::spouse)})
+    (and (? ::common/married)
+         (? ::blind {:person (? ::common/spouse)})
          (? ::additional-exemption-for-spouse))))
 
 (define ::paragraph-2
@@ -314,11 +305,9 @@
 ;;
 ;;     In the case of an individual who is not married and is not a surviving spouse, paragraphs (1) and (2) shall be applied by substituting "$750" for "$600".
 
-(condition ::married [:year :person])
-
 (defcase ::bonus
   (fn [? _]
-    (and (not (? ::married)) (not (? ::s2/surviving-spouse))))
+    (and (not (? ::common/married)) (not (? ::s2/surviving-spouse))))
   (fn [_ _ _]
     750))
 
